@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ton/ton": "^13.11.1",
     "@tonconnect/ui-react": "^2.0.1-beta.3",
+    "buffer": "^6.0.3",
     "eruda": "^2.11.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

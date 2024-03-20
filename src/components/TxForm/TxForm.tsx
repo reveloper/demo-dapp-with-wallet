@@ -2,10 +2,12 @@ import React, {useCallback, useState} from 'react';
 import ReactJson from 'react-json-view';
 import './style.scss';
 import {SendTransactionRequest, useTonConnectUI, useTonWallet} from "@tonconnect/ui-react";
+import {getTxByBOC} from "../txComponents/txListener";
 
 // In this example, we are using a predefined smart contract state initialization (`stateInit`)
 // to interact with an "EchoContract". This contract is designed to send the value back to the sender,
 // serving as a testing tool to prevent users from accidentally spending money.
+const TonviewerTxURL = 'https://tonviewer.com/transaction/';
 const defaultTx: SendTransactionRequest = {
 	// The transaction is valid for 10 minutes from now, in unix epoch seconds.
 	validUntil: Math.floor(Date.now() / 1000) + 600,
@@ -46,7 +48,13 @@ export function TxForm() {
 			<h3>Configure and send transaction</h3>
 			<ReactJson src={defaultTx} theme="ocean" onEdit={onChange} onAdd={onChange} onDelete={onChange} />
 			{wallet ? (
-				<button onClick={() => tonConnectUi.sendTransaction(tx)}>
+				<button onClick={ async () =>
+				{
+					const res = await tonConnectUi.sendTransaction(tx);
+					const ResTx = await getTxByBOC(res.boc);
+					console.log('TxLink = ', TonviewerTxURL + ResTx);
+				}
+				}>
 					Send transaction
 				</button>
 			) : (

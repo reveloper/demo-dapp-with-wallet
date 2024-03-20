@@ -1,4 +1,5 @@
 import './patch-local-storage-for-github-pages';
+import './polyfill';
 
 import React, {StrictMode} from 'react'
 import { render } from 'react-dom';
